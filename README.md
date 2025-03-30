@@ -2,8 +2,7 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone <repository-url>
-cd DjangoPoetry
+git clone https://github.com/Kaitru/TL-Group-Test.git
 ```
 
 2. Создайте виртуальное окружение:
