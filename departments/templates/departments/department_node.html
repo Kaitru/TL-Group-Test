@@ -1,0 +1,64 @@
+<div class="department-node" data-department-id="{{ department.id }}">
+    <div class="collapsible">
+        <h5 class="mb-0">
+            <i class="bi bi-folder-fill text-warning"></i>
+            {{ department.name }}
+            <small class="text-muted">(Уровень {{ department.level }})</small>
+            {% if department.children.exists %}
+            <span class="badge bg-secondary ms-2">Подотделы</span>
+            {% endif %}
+        </h5>
+    </div>
+    
+    <div class="department-content" style="display: none;">
+        <div class="loading-spinner text-center py-3" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+        </div>
+        
+        <div class="employees-container">
+            {% if department.employees.exists %}
+            <div class="card mb-3">
+                <div class="card-header bg-light">
+                    <i class="bi bi-people-fill text-primary"></i> Сотрудники отдела
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Должность</th>
+                                    <th>Дата приема</th>
+                                    <th>Зарплата</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for employee in department.employees.all %}
+                                <tr>
+                                    <td>{{ employee.full_name }}</td>
+                                    <td>{{ employee.position }}</td>
+                                    <td>{{ employee.hire_date|date:"d.m.Y" }}</td>
+                                    <td>{{ employee.salary|floatformat:2 }} ₽</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="children-container">
+            {% if department.children.exists %}
+            <div class="department-tree">
+                {% for child in department.children.all %}
+                    {% include "departments/department_node.html" with department=child %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div> 

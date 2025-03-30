@@ -1,0 +1,14 @@
+{% extends 'departments/base.html' %}
+
+{% block title %}Структура отделов{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Структура отделов</h1>
+        {% for department in departments %}
+            {% include "departments/department_node.html" with department=department %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 
